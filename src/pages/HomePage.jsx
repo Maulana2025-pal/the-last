@@ -9,7 +9,7 @@ export default function HomePage() {
     <div>
       <Navbar/>
       <HeroSection />
-      <ShopPage/>
+      <ShopPage />
       
     </div>
   );

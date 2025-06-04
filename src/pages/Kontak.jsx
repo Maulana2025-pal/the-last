@@ -6,7 +6,7 @@ import KontakSection from '../Components/Kontak-Section';
 
 function Kontak() {
   return (
-    <KontakSection/>
+    <KontakSection />
   );
 }
 
