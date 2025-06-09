@@ -29,7 +29,7 @@ function KontakSection() {
                   </li>
                   <li>
                     <span className="font-semibold">Telepon:</span> +62
-                    085768111508
+                    85768111508
                   </li>
                   <li>
                     <span className="font-semibold">Jam Operasional:</span>{" "}
