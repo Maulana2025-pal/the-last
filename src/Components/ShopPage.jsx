@@ -33,7 +33,7 @@ const products = [
   },
   {
     id: 4,
-    name: "Vavi Basic",
+    name: "Nike Hodie Black",
     price: 339000,
     image: "/VaviBasic.jpg",
     category: "Hoodie",
