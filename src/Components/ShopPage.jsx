@@ -5,7 +5,7 @@ const products = [
     id: 1,
     name: "Adidas Rework",
     price: 299000,
-    image: "/AdidasRework.jpg",
+    image: "/9.png",
     category: "Hoodie",
     sizes: ["L", "XL"],
     colors: ["Black", "White"],
@@ -15,7 +15,7 @@ const products = [
     id: 2,
     name: "Denim Work Shirt",
     price: 319000,
-    image: "/DenimWorkShirt.jpg",
+    image: "/11.png",
     category: "Hoodie",
     sizes: ["L", "XL"],
     colors: ["Black", "White"],
@@ -25,7 +25,7 @@ const products = [
     id: 3,
     name: "Puma Hoodie",
     price: 289000,
-    image: "/PumaHodie.jpg",
+    image: "/5.png",
     category: "Hoodie",
     sizes: ["S", "M", "L"],
     colors: ["Gray", "Black"],
@@ -33,11 +33,21 @@ const products = [
   },
   {
     id: 4,
-    name: "Nike Hodie Black",
+    name: "Uniqlo Hodie Basic Navy",
     price: 339000,
-    image: "/VaviBasic.jpg",
+    image: "/7.png",
     category: "Hoodie",
     sizes: ["L", "XL"],
+    colors: ["Black", "White"],
+    materials: ["Cotton"],
+  },
+  {
+    id: 5,
+    name: "Nike Hodie Black",
+    price: 339000,
+    image: "/13.png",
+    category: "Hoodie",
+    sizes: ["M", "L", "XL"],
     colors: ["Black", "White"],
     materials: ["Cotton"],
   },
@@ -80,12 +90,21 @@ function ShopPage() {
   }
 
   function confirmOrder() {
-    alert(`Pesanan berhasil!
-Produk: ${selectedProduct.name}
-Ukuran: ${selectedSize}
-Warna: ${selectedColor}
-Bahan: ${selectedMaterial}
-Harga: Rp${selectedProduct.price.toLocaleString("id-ID")}`);
+    const message =
+      `Halo! Saya ingin memesan:\n\n` +
+      `Produk: ${selectedProduct.name}\n` +
+      `Ukuran: ${selectedSize}\n` +
+      `Warna: ${selectedColor}\n` +
+      `Bahan: ${selectedMaterial}\n` +
+      `Harga: Rp${selectedProduct.price.toLocaleString("id-ID")}`;
+
+    const encodedMessage = encodeURIComponent(message);
+    const whatsappUrl = `https://wa.me/6285768111508?text=${encodedMessage}`;
+
+    // Buka tautan WhatsApp di tab baru
+    window.open(whatsappUrl, "_blank");
+
+    // Tutup modal
     closeModal();
   }
 
