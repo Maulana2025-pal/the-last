@@ -15,6 +15,7 @@ createRoot(document.getElementById("root")).render(
         <Route path="/kontak" element={<KontakSection />} />
         <Route path="/about" element={<AboutPages />} />
         <Route path="/shop" element={<Shop />} />
+        <Route path="/cart" element={<CartPage />} />
       </Routes>
     </BrowserRouter>
   </StrictMode>
