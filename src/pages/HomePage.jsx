@@ -1,18 +1,16 @@
 import React from "react";
 import Navbar from "../Components/Navbar";
 import HeroSection from "../Components/Hero-Section";
-import {Routes, Route} from 'react-router-dom';
-import ShopPage from "../Components/ShopPage";
+import { Routes, Route } from "react-router-dom";
+import ShopPage from "./ShopPage";
 import KontakSection from "../Components/Kontak-Section";
 
 export default function HomePage() {
   return (
     <div>
-      <Navbar/>
+      <Navbar />
       <HeroSection />
-      <ShopPage/>
-      
-      
+      <ShopPage />
     </div>
   );
 }

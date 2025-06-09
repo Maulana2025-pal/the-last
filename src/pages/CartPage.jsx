@@ -1,9 +1,22 @@
 import React from "react";
-import { useLocation, Link } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 function CartPage() {
   const location = useLocation();
   const cart = location.state?.cart || [];
+
+  function generateWhatsAppMessage(cart) {
+    let message = "Halo! Saya ingin memesan produk berikut:\n\n";
+    cart.forEach((item, idx) => {
+      message += `Produk ${idx + 1}:\n`;
+      message += `- Nama: ${item.name}\n`;
+      message += `- Ukuran: ${item.size}\n`;
+      message += `- Warna: ${item.color}\n`;
+      message += `- Bahan: ${item.material}\n`;
+      message += `- Harga: Rp${item.price.toLocaleString("id-ID")}\n\n`;
+    });
+    return message;
+  }
 
   return (
     <div className="px-6 py-10 max-w-4xl mx-auto">
@@ -57,19 +70,6 @@ function CartPage() {
       )}
     </div>
   );
-}
-
-function generateWhatsAppMessage(cart) {
-  let message = "Halo! Saya ingin memesan produk berikut:\n\n";
-  cart.forEach((item, idx) => {
-    message += `Produk ${idx + 1}:\n`;
-    message += `- Nama: ${item.name}\n`;
-    message += `- Ukuran: ${item.size}\n`;
-    message += `- Warna: ${item.color}\n`;
-    message += `- Bahan: ${item.material}\n`;
-    message += `- Harga: Rp${item.price.toLocaleString("id-ID")}\n\n`;
-  });
-  return message;
 }
 
 export default CartPage;

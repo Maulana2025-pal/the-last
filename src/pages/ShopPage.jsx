@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom"; // untuk navigasi ke CartPage
 
 const products = [
   {
@@ -56,12 +57,32 @@ const products = [
 function ShopPage() {
   const hoodieProducts = products.filter((p) => p.category === "Hoodie");
 
+  const [cart, setCart] = useState([]);
+  const navigate = useNavigate();
   const [modalOpen, setModalOpen] = useState(false);
   const [step, setStep] = useState(1);
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [selectedSize, setSelectedSize] = useState("");
   const [selectedColor, setSelectedColor] = useState("");
   const [selectedMaterial, setSelectedMaterial] = useState("");
+
+  function addToCart() {
+    const newItem = {
+      id: selectedProduct.id,
+      name: selectedProduct.name,
+      image: selectedProduct.image,
+      price: selectedProduct.price,
+      size: selectedSize,
+      color: selectedColor,
+      material: selectedMaterial,
+    };
+    setCart([...cart, newItem]);
+    closeModal(); // tutup modal setelah menambahkan
+  }
+
+  function goToCart() {
+    navigate("/cart", { state: { cart } });
+  }
 
   function openModal(product) {
     setSelectedProduct(product);
@@ -107,8 +128,6 @@ function ShopPage() {
     // Tutup modal
     closeModal();
   }
-  
-  
 
   return (
     <div className="px-6 py-10 max-w-7xl mx-auto">
@@ -150,7 +169,7 @@ function ShopPage() {
 
       {modalOpen && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 px-4">
-          <div className="bg-white rounded-2xl p-6 w-full max-w-md shadow-xl relative animate-fadeIn">
+          <div className="bg-white rounded-2xl p-6 w-full max-w-md shadow-xl relative animate-fadeIn overflow-hidden">
             <button
               onClick={closeModal}
               className="absolute top-3 right-4 text-gray-400 hover:text-gray-700 text-2xl"
@@ -158,18 +177,34 @@ function ShopPage() {
               &times;
             </button>
 
-            {/* Langkah indikator */}
-            <div className="flex justify-center mb-6 gap-2">
-              {[1, 2, 3, 4].map((s) => (
-                <div
-                  key={s}
-                  className={`w-3 h-3 rounded-full ${
-                    s === step ? "bg-blue-950" : "bg-gray-300"
-                  }`}
-                />
-              ))}
+            {/* Gambar Produk */}
+            <img
+              src={selectedProduct.image}
+              alt={selectedProduct.name}
+              className="w-full h-64 object-cover rounded-xl mb-4"
+            />
+
+            {/* Langkah indikator dan tombol Lihat Keranjang */}
+            <div className="flex justify-between items-center mb-4">
+              <div className="flex gap-2">
+                {[1, 2, 3, 4].map((s) => (
+                  <div
+                    key={s}
+                    className={`w-3 h-3 rounded-full ${
+                      s === step ? "bg-blue-950" : "bg-gray-300"
+                    }`}
+                  />
+                ))}
+              </div>
+              <button
+                onClick={goToCart}
+                className="bg-blue-950 text-white px-3 py-1 text-sm rounded-md hover:bg-black transition"
+              >
+                Keranjang ({cart.length})
+              </button>
             </div>
 
+            {/* Judul Step */}
             <h2 className="text-xl font-semibold text-center text-blue-950 mb-4">
               {step === 1 && `Pilih Ukuran`}
               {step === 2 && `Pilih Warna`}
@@ -177,7 +212,8 @@ function ShopPage() {
               {step === 4 && `Konfirmasi Pesanan`}
             </h2>
 
-            <div className="space-y-4">
+            {/* Isi Step */}
+            <div className="space-y-4 mb-6">
               {step === 1 &&
                 selectedProduct.sizes.map((size) => (
                   <button
@@ -224,7 +260,7 @@ function ShopPage() {
                 ))}
 
               {step === 4 && (
-                <div className="space-y-2 text-sm text-gray-800 bg-gray-50 rounded-lg p-4">
+                <div className="text-sm text-gray-700 space-y-2">
                   <p>
                     <strong>Produk:</strong> {selectedProduct.name}
                   </p>
@@ -241,11 +277,21 @@ function ShopPage() {
                     <strong>Harga:</strong> Rp
                     {selectedProduct.price.toLocaleString("id-ID")}
                   </p>
+
+                  <div className="flex flex-col gap-3 mt-4 sm:flex-row sm:justify-between">
+                    <button
+                      onClick={addToCart}
+                      className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition w-full sm:w-auto"
+                    >
+                      Masukkan ke Keranjang
+                    </button>
+                  </div>
                 </div>
               )}
             </div>
 
-            <div className="flex justify-between mt-6">
+            {/* Navigasi Step */}
+            <div className="flex justify-between">
               <button
                 onClick={prevStep}
                 disabled={step === 1}

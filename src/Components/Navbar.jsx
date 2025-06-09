@@ -53,7 +53,7 @@ function Navbar() {
             </a>
           </li>
           <li>
-            <a href="/keranjang" className="hover:text-blue-950">
+            <a href="/cart" className="hover:text-blue-950">
               <ShoppingBag />
             </a>
           </li>
