@@ -12,12 +12,12 @@ function HeroSection() {
 
         {/* Konten teks dengan z-10 agar berada di atas gradasi */}
         <div className="relative z-10 pl-16 max-w-xl text-white">
-          <h2 className="text-5xl font-bold mb-4">REVIBES WEAR</h2>
+          <h2 className="text-5xl font-bold mb-4">AlVI THRIFT SHOP </h2>
           <p className="text-lg text-gray-400 mb-6">
             Hoodie kekinian yang peduli bumi dan penuh gaya
           </p>
           <a
-            href="#"
+            href="/shop"
             className="align-text-bottom bg-blue-950 text-white px-6 py-3 rounded-full shadow-md hover:bg-black hover:text-white  "
           >
             Belanja Sekarang

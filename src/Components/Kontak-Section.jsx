@@ -1,6 +1,6 @@
-import React from 'react'
-import HeroSection from './Hero-Section';
-import Navbar from './Navbar';
+import React from "react";
+import HeroSection from "./Hero-Section";
+import Navbar from "./Navbar";
 
 function KontakSection() {
   return (
@@ -19,8 +19,9 @@ function KontakSection() {
                 </p>
                 <ul className="space-y-4 text-sm">
                   <li>
-                    <span className="font-semibold">Alamat:</span> Jl. Contoh
-                    No. 123, Jakarta, Indonesia
+                    <span className="font-semibold">Alamat:</span> Jl. Lunjuk
+                    Jaya, Lorok Pakjo, Kec. Ilir Bar. I, Kota Palembang,
+                    Sumatera Selatan 30152
                   </li>
                   <li>
                     <span className="font-semibold">Email:</span>{" "}
@@ -28,7 +29,7 @@ function KontakSection() {
                   </li>
                   <li>
                     <span className="font-semibold">Telepon:</span> +62
-                    812-3456-7890
+                    085768111508
                   </li>
                   <li>
                     <span className="font-semibold">Jam Operasional:</span>{" "}
@@ -92,4 +93,4 @@ function KontakSection() {
   );
 }
 
-export default KontakSection
+export default KontakSection;

@@ -13,7 +13,7 @@ function AboutSection() {
               {/* Gambar atau Ilustrasi */}
               <div className="p-6 flex items-center justify-center">
                 <img
-                  src="/baju2.png"
+                  src="/1.png"
                   alt="Tentang Kami"
                   className="rounded-xl w-full h-auto object-cover shadow-lg"
                 />
