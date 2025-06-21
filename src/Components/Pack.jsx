@@ -66,9 +66,9 @@ function Pack() {
             💌 Thank You Card Spesial
           </h2>
           <p className="text-gray-600 text-sm sm:text-base">
-            Kartu ucapan ini terbuat dari <strong>kertas daur ulang</strong>,
-            berisi pesan tulus untukmu yang telah ikut berkontribusi pada
-            gerakan fashion berkelanjutan bersama kami. 🌿
+            Kartu ucapan ini terbuat dari <strong>kertas daur ulang</strong>,dan
+            mengandung benih tanaman. Berisi pesan tulus untukmu yang telah ikut
+            berkontribusi pada gerakan fashion berkelanjutan bersama kami. 🌿
           </p>
         </div>
       </div>
