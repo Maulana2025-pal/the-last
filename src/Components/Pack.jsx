@@ -2,22 +2,25 @@ import React from "react";
 
 function Pack() {
   return (
-    <div className="max-w-4xl mx-auto p-6 bg-white rounded-2xl shadow-lg mt-10 space-y-6">
+    <div className="max-w-4xl mx-auto px-4 py-8 bg-white rounded-2xl shadow-lg mt-10 space-y-6">
       <h1 className="text-3xl font-bold text-center text-gray-800">
         Packaging Alvi Thrift Shop
       </h1>
-      <p className="text-center text-lg text-gray-600">
+      <p className="text-center text-base sm:text-lg text-gray-600">
         Apa saja yang kamu dapatkan saat membeli produk dari kami? 💚
       </p>
 
-      <div className="bg-green-50 p-4 rounded-xl border border-green-200 text-green-800 text-sm text-center">
-        Alvi Thrift Shop adalah brand rework dengan teknik jahit dan lukis
-        tangan. Kami percaya bahwa fashion bisa tetap stylish sambil peduli
-        bumi. Dengan memilih produk kami, kamu sudah ikut mengurangi limbah
-        tekstil dan mendukung bumi yang lebih sehat. 🌍
+      <div className="bg-green-50 p-4 rounded-xl border border-green-200 text-green-800 text-sm sm:text-base text-center">
+        <p>
+          Alvi Thrift Shop adalah brand <strong>rework handmade</strong> dengan
+          teknik <strong>jahit dan lukis tangan</strong>. Kami percaya bahwa
+          fashion bisa tetap stylish sambil peduli bumi. Dengan memilih produk
+          kami, kamu sudah ikut mengurangi <strong>limbah tekstil</strong> dan
+          mendukung bumi yang lebih sehat 🌍.
+        </p>
       </div>
 
-      <div className="grid md:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {/* Hang Tag */}
         <div className="space-y-3">
           <img
@@ -28,10 +31,10 @@ function Pack() {
           <h2 className="text-xl font-semibold text-gray-800">
             🌱 Hang Tag Ramah Lingkungan
           </h2>
-          <p className="text-gray-600">
-            Hang tag dibuat dari <strong>kertas daur ulang</strong> dan berisi
-            benih tanaman. Setelah digunakan, hang tag ini bisa kamu tanam dan
-            tumbuhkan!
+          <p className="text-gray-600 text-sm sm:text-base">
+            Hang tag ini dibuat dari <strong>kertas daur ulang</strong> dan
+            mengandung benih tanaman. Setelah dipakai, kamu bisa menanamnya dan
+            lihat ia tumbuh menjadi tanaman baru. 🌱✨
           </p>
         </div>
 
@@ -45,15 +48,15 @@ function Pack() {
           <h2 className="text-xl font-semibold text-gray-800">
             📦 Box dari Kertas Daur Ulang
           </h2>
-          <p className="text-gray-600">
-            Setiap produk dikemas dengan box eksklusif berbahan dasar{" "}
-            <strong>kertas daur ulang</strong>, memberikan pengalaman unboxing
-            yang bermakna dan ramah lingkungan.
+          <p className="text-gray-600 text-sm sm:text-base">
+            Setiap produk kamu akan dibungkus dalam box eksklusif berbahan dasar{" "}
+            <strong>kertas daur ulang</strong> — bukan hanya unik, tapi juga
+            ramah lingkungan.
           </p>
         </div>
 
         {/* Thank You Card */}
-        <div className="space-y-3">
+        <div className="space-y-3 md:col-span-2">
           <img
             src="./thankyoucard.png"
             alt="Thank You Card"
@@ -62,19 +65,20 @@ function Pack() {
           <h2 className="text-xl font-semibold text-gray-800">
             💌 Thank You Card Spesial
           </h2>
-          <p className="text-gray-600">
-            Kartu ucapan terima kasih kami juga dibuat dari kertas daur ulang.
-            Sebuah pesan kecil untukmu, dari hati kami, yang ingin berbagi
-            semangat #SadarLingkungan.
+          <p className="text-gray-600 text-sm sm:text-base">
+            Kartu ucapan ini terbuat dari <strong>kertas daur ulang</strong>,
+            berisi pesan tulus untukmu yang telah ikut berkontribusi pada
+            gerakan fashion berkelanjutan bersama kami. 🌿
           </p>
         </div>
       </div>
 
       <div className="mt-8 text-center">
-        <p className="text-gray-700 text-md">
-          Dengan setiap pembelian, kamu bukan hanya mendapat produk fashion
-          rework yang unik, tapi juga turut berkontribusi menjaga bumi. Terima
-          kasih telah memilih Alvi Thrift Shop! 🌿✨
+        <p className="text-gray-700 text-sm sm:text-base">
+          Dengan setiap pembelian, kamu bukan hanya mendapatkan produk fashion
+          rework yang unik dan artistik, tapi juga turut menjaga bumi tetap
+          bersih dari limbah tekstil. 💚 Terima kasih telah memilih{" "}
+          <strong>Alvi Thrift Shop</strong>!
         </p>
       </div>
     </div>

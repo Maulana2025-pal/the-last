@@ -66,7 +66,7 @@ const products = [
     id: 7,
     name: "Croptop Spider Painting",
     price: 350000,
-    image: "/crop.png",
+    image: "./crop.png",
     category: "Croptop",
     sizes: ["M", "L", "XL"],
     colors: ["Black", "White"],
