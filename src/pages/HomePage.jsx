@@ -6,13 +6,14 @@ import KontakSection from "../Components/Kontak-Section";
 import Pack from "../Components/Pack";
 import Footer from "../Components/Footer";
 import AllShop from "./AllShop";
+import ShopPage from "./ShopPage";
 
 export default function HomePage() {
   return (
     <div>
       <Navbar />
       <HeroSection />
-      <AllShop />
+      <ShopPage />
       <Pack />
       <Footer/>
     </div>
