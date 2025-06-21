@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom"; // untuk navigasi ke CartPage
+import { useNavigate } from "react-router-dom";
 
 const products = [
   {
@@ -52,10 +52,34 @@ const products = [
     colors: ["Black", "White"],
     materials: ["Cotton"],
   },
+  {
+    id: 6,
+    name: "Rework Painting",
+    price: 300000,
+    image: "/2(1).png",
+    category: "Jacket",
+    sizes: ["M", "L", "XL"],
+    colors: ["Black", "White", "Blue"],
+    materials: ["Cotton"],
+  },
+  {
+    id: 7,
+    name: "Croptop Spider Painting",
+    price: 350000,
+    image: "/crop.png",
+    category: "Croptop",
+    sizes: ["M", "L", "XL"],
+    colors: ["Black", "White"],
+    materials: ["Cotton"],
+  },
 ];
 
 function ShopPage() {
-  const hoodieProducts = products.filter((p) => p.category === "Hoodie");
+  const [selectedCategory, setSelectedCategory] = useState("All");
+  const filteredProducts =
+    selectedCategory === "All"
+      ? products
+      : products.filter((p) => p.category === selectedCategory);
 
   const [cart, setCart] = useState([]);
   const navigate = useNavigate();
@@ -77,7 +101,7 @@ function ShopPage() {
       material: selectedMaterial,
     };
     setCart([...cart, newItem]);
-    closeModal(); // tutup modal setelah menambahkan
+    closeModal();
   }
 
   function goToCart() {
@@ -121,25 +145,40 @@ function ShopPage() {
 
     const encodedMessage = encodeURIComponent(message);
     const whatsappUrl = `https://wa.me/6285768111508?text=${encodedMessage}`;
-
-    // Buka tautan WhatsApp di tab baru
     window.open(whatsappUrl, "_blank");
-
-    // Tutup modal
     closeModal();
   }
 
   return (
     <div className="px-6 py-10 max-w-7xl mx-auto">
-      <h1 className="text-4xl font-bold text-blue-950 mb-6">
-        Shop Hoodie Collection
+      <h1 className="text-4xl font-bold text-blue-950 mb-4">
+        Koleksi Alvi Thrift Shop
       </h1>
-      <p className="text-gray-600 mb-10">
-        Temukan hoodie berkualitas tinggi yang stylish dan ramah lingkungan.
+      <p className="text-gray-600 mb-6">
+        Pilih produk rework handmade yang unik dan mendukung gaya hidup ramah
+        lingkungan 🌱
       </p>
 
+      {/* Kategori Filter */}
+      <div className="flex gap-4 mb-10">
+        {["All", "Hoodie", "Jacket", "Croptop"].map((cat) => (
+          <button
+            key={cat}
+            onClick={() => setSelectedCategory(cat)}
+            className={`px-4 py-2 rounded-full border transition ${
+              selectedCategory === cat
+                ? "bg-blue-950 text-white border-blue-950"
+                : "text-gray-700 border-gray-300 hover:bg-gray-100"
+            }`}
+          >
+            {cat}
+          </button>
+        ))}
+      </div>
+
+      {/* Grid Produk */}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
-        {hoodieProducts.map((product) => (
+        {filteredProducts.map((product) => (
           <div
             key={product.id}
             className="bg-white rounded-2xl shadow-md overflow-hidden transition hover:shadow-lg"
@@ -167,9 +206,10 @@ function ShopPage() {
         ))}
       </div>
 
+      {/* Modal Pilihan */}
       {modalOpen && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 px-4">
-          <div className="bg-white rounded-2xl p-6 w-full max-w-md shadow-xl relative animate-fadeIn overflow-hidden">
+          <div className="bg-white rounded-2xl p-6 w-full max-w-md shadow-xl relative animate-fadeIn">
             <button
               onClick={closeModal}
               className="absolute top-3 right-4 text-gray-400 hover:text-gray-700 text-2xl"
@@ -177,14 +217,12 @@ function ShopPage() {
               &times;
             </button>
 
-            {/* Gambar Produk */}
             <img
               src={selectedProduct.image}
               alt={selectedProduct.name}
               className="w-full h-64 object-cover rounded-xl mb-4"
             />
 
-            {/* Langkah indikator dan tombol Lihat Keranjang */}
             <div className="flex justify-between items-center mb-4">
               <div className="flex gap-2">
                 {[1, 2, 3, 4].map((s) => (
@@ -204,7 +242,6 @@ function ShopPage() {
               </button>
             </div>
 
-            {/* Judul Step */}
             <h2 className="text-xl font-semibold text-center text-blue-950 mb-4">
               {step === 1 && `Pilih Ukuran`}
               {step === 2 && `Pilih Warna`}
@@ -212,7 +249,6 @@ function ShopPage() {
               {step === 4 && `Konfirmasi Pesanan`}
             </h2>
 
-            {/* Isi Step */}
             <div className="space-y-4 mb-6">
               {step === 1 &&
                 selectedProduct.sizes.map((size) => (
@@ -290,7 +326,6 @@ function ShopPage() {
               )}
             </div>
 
-            {/* Navigasi Step */}
             <div className="flex justify-between">
               <button
                 onClick={prevStep}
