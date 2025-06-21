@@ -156,7 +156,7 @@ function ShopPage() {
       </h1>
       <p className="text-gray-600 mb-6">
         Pilih produk rework handmade yang unik dan mendukung gaya hidup ramah
-        lingkungan 🌱
+        lingkungan 
       </p>
 
       {/* Kategori Filter */}

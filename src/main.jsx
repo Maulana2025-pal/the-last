@@ -7,6 +7,7 @@ import KontakSection from "./Components/Kontak-Section";
 import AboutPages from "./pages/AboutPages";
 import ShopPage from "./pages/ShopPage";
 import CartPage from "./pages/CartPage";
+import AllShop from "./pages/AllShop";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
@@ -15,7 +16,7 @@ createRoot(document.getElementById("root")).render(
         <Route path="/" element={<HomePage />} />
         <Route path="/kontak" element={<KontakSection />} />
         <Route path="/about" element={<AboutPages />} />
-        <Route path="/shop" element={<ShopPage />} />
+        <Route path="/shop" element={<AllShop />} />
         <Route path="/cart" element={<CartPage />} />
       </Routes>
     </BrowserRouter>
