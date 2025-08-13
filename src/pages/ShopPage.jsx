@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 const products = [
@@ -81,7 +81,12 @@ function ShopPage() {
       ? products
       : products.filter((p) => p.category === selectedCategory);
 
-  const [cart, setCart] = useState([]);
+  // Load cart from sessionStorage on component mount
+  const [cart, setCart] = useState(() => {
+    const savedCart = sessionStorage.getItem("thriftShopCart");
+    return savedCart ? JSON.parse(savedCart) : [];
+  });
+
   const navigate = useNavigate();
   const [modalOpen, setModalOpen] = useState(false);
   const [step, setStep] = useState(1);
@@ -89,23 +94,37 @@ function ShopPage() {
   const [selectedSize, setSelectedSize] = useState("");
   const [selectedColor, setSelectedColor] = useState("");
   const [selectedMaterial, setSelectedMaterial] = useState("");
+  const [quantity, setQuantity] = useState(1);
+
+  // Calculate total items in cart
+  function getTotalCartItems() {
+    return cart.reduce((total, item) => total + (item.quantity || 1), 0);
+  }
+  useEffect(() => {
+    sessionStorage.setItem("thriftShopCart", JSON.stringify(cart));
+  }, [cart]);
 
   function addToCart() {
     const newItem = {
-      id: selectedProduct.id,
+      id: Date.now(), // Unique ID for each cart item
+      productId: selectedProduct.id,
       name: selectedProduct.name,
       image: selectedProduct.image,
       price: selectedProduct.price,
       size: selectedSize,
       color: selectedColor,
       material: selectedMaterial,
+      quantity: quantity,
     };
-    setCart([...cart, newItem]);
+    setCart((prevCart) => [...prevCart, newItem]);
+    alert(
+      `${quantity} x ${selectedProduct.name} berhasil ditambahkan ke keranjang!`
+    );
     closeModal();
   }
 
   function goToCart() {
-    navigate("/cart", { state: { cart } });
+    navigate("/cart");
   }
 
   function openModal(product) {
@@ -113,6 +132,7 @@ function ShopPage() {
     setSelectedSize("");
     setSelectedColor("");
     setSelectedMaterial("");
+    setQuantity(1);
     setStep(1);
     setModalOpen(true);
   }
@@ -127,6 +147,7 @@ function ShopPage() {
     if (step === 1 && !selectedSize) return alert("Pilih ukuran dulu!");
     if (step === 2 && !selectedColor) return alert("Pilih warna dulu!");
     if (step === 3 && !selectedMaterial) return alert("Pilih bahan dulu!");
+    if (step === 4 && quantity < 1) return alert("Pilih jumlah minimal 1!");
     setStep(step + 1);
   }
 
@@ -135,13 +156,16 @@ function ShopPage() {
   }
 
   function confirmOrder() {
+    const totalPrice = selectedProduct.price * quantity;
     const message =
       `Halo! Saya ingin memesan:\n\n` +
       `Produk: ${selectedProduct.name}\n` +
       `Ukuran: ${selectedSize}\n` +
       `Warna: ${selectedColor}\n` +
       `Bahan: ${selectedMaterial}\n` +
-      `Harga: Rp${selectedProduct.price.toLocaleString("id-ID")}`;
+      `Jumlah: ${quantity} item\n` +
+      `Harga per item: Rp${selectedProduct.price.toLocaleString("id-ID")}\n` +
+      `Total Harga: Rp${totalPrice.toLocaleString("id-ID")}`;
 
     const encodedMessage = encodeURIComponent(message);
     const whatsappUrl = `https://wa.me/6285768111508?text=${encodedMessage}`;
@@ -156,7 +180,7 @@ function ShopPage() {
       </h1>
       <p className="text-gray-600 mb-6">
         Pilih produk rework handmade yang unik dan mendukung gaya hidup ramah
-        lingkungan 
+        lingkungan
       </p>
 
       {/* Kategori Filter */}
@@ -225,7 +249,7 @@ function ShopPage() {
 
             <div className="flex justify-between items-center mb-4">
               <div className="flex gap-2">
-                {[1, 2, 3, 4].map((s) => (
+                {[1, 2, 3, 4, 5].map((s) => (
                   <div
                     key={s}
                     className={`w-3 h-3 rounded-full ${
@@ -238,7 +262,7 @@ function ShopPage() {
                 onClick={goToCart}
                 className="bg-blue-950 text-white px-3 py-1 text-sm rounded-md hover:bg-black transition"
               >
-                Keranjang ({cart.length})
+                Keranjang ({getTotalCartItems()})
               </button>
             </div>
 
@@ -246,7 +270,8 @@ function ShopPage() {
               {step === 1 && `Pilih Ukuran`}
               {step === 2 && `Pilih Warna`}
               {step === 3 && `Pilih Bahan`}
-              {step === 4 && `Konfirmasi Pesanan`}
+              {step === 4 && `Pilih Jumlah`}
+              {step === 5 && `Konfirmasi Pesanan`}
             </h2>
 
             <div className="space-y-4 mb-6">
@@ -296,6 +321,61 @@ function ShopPage() {
                 ))}
 
               {step === 4 && (
+                <div className="text-center">
+                  <p className="text-gray-700 mb-4">
+                    Pilih jumlah yang ingin dipesan:
+                  </p>
+                  <div className="flex items-center justify-center gap-4 mb-4">
+                    <button
+                      onClick={() => quantity > 1 && setQuantity(quantity - 1)}
+                      className={`w-10 h-10 rounded-full border-2 flex items-center justify-center text-xl font-bold transition ${
+                        quantity > 1
+                          ? "border-blue-950 text-blue-950 hover:bg-blue-950 hover:text-white"
+                          : "border-gray-300 text-gray-400 cursor-not-allowed"
+                      }`}
+                      disabled={quantity <= 1}
+                    >
+                      −
+                    </button>
+
+                    <div className="px-6 py-2 border-2 border-blue-950 rounded-lg bg-blue-50 min-w-[80px]">
+                      <span className="text-xl font-bold text-blue-950">
+                        {quantity}
+                      </span>
+                    </div>
+
+                    <button
+                      onClick={() => quantity < 10 && setQuantity(quantity + 1)}
+                      className={`w-10 h-10 rounded-full border-2 flex items-center justify-center text-xl font-bold transition ${
+                        quantity < 10
+                          ? "border-blue-950 text-blue-950 hover:bg-blue-950 hover:text-white"
+                          : "border-gray-300 text-gray-400 cursor-not-allowed"
+                      }`}
+                      disabled={quantity >= 10}
+                    >
+                      +
+                    </button>
+                  </div>
+
+                  <div className="text-sm text-gray-600 space-y-1">
+                    <p>
+                      Harga per item: Rp
+                      {selectedProduct.price.toLocaleString("id-ID")}
+                    </p>
+                    <p className="font-semibold text-blue-950">
+                      Total: Rp
+                      {(selectedProduct.price * quantity).toLocaleString(
+                        "id-ID"
+                      )}
+                    </p>
+                    <p className="text-xs text-gray-500">
+                      Maksimal 10 item per pesanan
+                    </p>
+                  </div>
+                </div>
+              )}
+
+              {step === 5 && (
                 <div className="text-sm text-gray-700 space-y-2">
                   <p>
                     <strong>Produk:</strong> {selectedProduct.name}
@@ -310,8 +390,15 @@ function ShopPage() {
                     <strong>Bahan:</strong> {selectedMaterial}
                   </p>
                   <p>
-                    <strong>Harga:</strong> Rp
+                    <strong>Jumlah:</strong> {quantity} item
+                  </p>
+                  <p>
+                    <strong>Harga per item:</strong> Rp
                     {selectedProduct.price.toLocaleString("id-ID")}
+                  </p>
+                  <p className="text-lg font-bold text-blue-950">
+                    <strong>Total Harga:</strong> Rp
+                    {(selectedProduct.price * quantity).toLocaleString("id-ID")}
                   </p>
 
                   <div className="flex flex-col gap-3 mt-4 sm:flex-row sm:justify-between">
@@ -339,7 +426,7 @@ function ShopPage() {
                 Kembali
               </button>
 
-              {step < 4 ? (
+              {step < 5 ? (
                 <button
                   onClick={nextStep}
                   className="bg-blue-950 text-white px-4 py-2 rounded-md hover:bg-black transition"
